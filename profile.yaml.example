@@ -1,0 +1,54 @@
+# ============================================================================
+# profile.yaml — your personal details for cover-letter and CV generation
+#
+# Copy this file to profile.yaml and fill in your own information.
+# profile.yaml is gitignored so your personal data stays local.
+# ============================================================================
+
+# ----- Contact info (used in cover-letter header and sign-off) -----
+name: "Jane Doe"
+city: "Zurich, Switzerland"
+email: "jane.doe@example.com"
+phone: "+41 00 000 00 00"
+
+# ----- Candidate facts (fed to Claude for cover-letter generation) -----
+# Write these as bullet points. Be specific — include numbers, dates, tools.
+# Claude will only use facts listed here; it will not fabricate.
+candidate_facts: |
+  - MSc Computer Science at ETH Zurich (started Sep 2025).
+  - Available for an internship from July 2026.
+  - Previous internship at Acme Corp, Summer 2024: built a data pipeline
+    processing 5M events/day using Python and Kafka, reducing latency by 30%.
+  - BSc Computer Science, Example University, GPA 3.8/4.0.
+  - Skills: Python, Java, SQL, Docker, Kubernetes, AWS.
+  - Languages: English (native), German (B2).
+
+# ----- Strengths bullets (fed to Claude for CV tailoring) -----
+# These are the default bullets in your CV's Strengths section.
+# Claude uses them as a reference template and rewrites them per job.
+# Use the exact LaTeX markup from your master.tex.
+candidate_facts_short: |
+  - MSc Computer Science at ETH Zurich since Sep 2025.
+  - Acme Corp Summer 2024: data pipeline, 5M events/day, Python + Kafka,
+    30% latency reduction.
+  - BSc Computer Science, Example University, GPA 3.8/4.0.
+  - Skills: Python, Java, SQL, Docker, Kubernetes, AWS.
+  - Languages: English (native), German (B2).
+
+reference_bullets: |
+  \item \textbf{Data Engineering:} Built a real-time pipeline processing 5M+ events/day at Acme Corp using Python and Apache Kafka, reducing end-to-end latency by 30\%. Designed monitoring dashboards in Grafana for pipeline health visibility.
+  \item \textbf{Cloud Infrastructure:} Hands-on experience with AWS (EC2, S3, Lambda) and Kubernetes. Containerised three internal services with Docker, cutting deployment time from 45 minutes to under 5.
+  \item \textbf{Academic Foundations:} MSc Computer Science candidate at ETH Zurich with coursework in distributed systems and machine learning. BSc GPA 3.8/4.0 with Dean's List recognition.
+
+# ----- Cover-letter style rules -----
+# Customise the tone and constraints for generated cover letters.
+# The defaults below enforce a human-sounding, concrete style.
+cover_letter_rules: |
+  1. NEVER use em-dashes. Use commas, semicolons, colons, or sentence breaks.
+  2. Never use cliches: passionate, thrilled, excited to apply, leverage,
+     synergy, dynamic, hit the ground running, drive impact, perfect fit.
+  3. Do not open with "My name is...". Open with a fact or hook.
+  4. Show, don't tell. Use concrete numbers from candidate_facts.
+  5. Three short paragraphs, total 250-320 words.
+  6. No filler closing. End on a concrete, specific hook.
+  7. Plain text only. No markdown, no bullet points.

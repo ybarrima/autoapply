@@ -1,0 +1,34 @@
+# Personal config (contains contact info, candidate facts)
+profile.yaml
+
+# Data (personal)
+jobs.csv
+jobs.csv.bak.*
+
+# Generated artefacts (personal)
+cover_letters/
+cv_latex/generated/
+cv_latex/templates/master.tex
+cv_latex/templates/master_OLD_backup.tex
+cv_latex/templates/mainimg4.png
+cv_latex/templates/*.png
+
+# Logs
+logs/
+
+# Python
+__pycache__/
+*.pyc
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Old CV files in root (not part of the tool)
+cv_youssef_barrima.*
