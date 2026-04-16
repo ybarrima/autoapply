@@ -17,7 +17,7 @@ Automated job discovery and application-artefact generator for targeted internsh
 ### 1. Clone and configure
 
 ```bash
-git clone https://github.com/<you>/jobQuery.git
+git clone https://github.com/<you>/autoapply.git
 cd jobQuery
 ```
 
