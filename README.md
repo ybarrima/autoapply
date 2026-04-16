@@ -96,7 +96,7 @@ The generator requires [Claude Code CLI](https://docs.anthropic.com/en/docs/clau
 ## Project structure
 
 ```
-jobQuery/
+autoapply/
 ├── jobs.csv                       # master spreadsheet (gitignored, generated)
 ├── scripts/
 │   ├── companies.py               # endpoints + priorities
