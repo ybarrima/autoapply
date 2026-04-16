@@ -1,4 +1,4 @@
-# jobQuery
+# autoapply for automated job apply
 
 Automated job discovery and application-artefact generator for targeted internship and early-career searches. Scrapes public job boards (Greenhouse, Ashby, Lever) every 6 hours, scores each posting against your profile, and generates tailored cover letters and CVs on demand using Claude.
 
