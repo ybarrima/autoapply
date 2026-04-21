@@ -47,6 +47,38 @@ API_COMPANIES = {
     "robinhood":       {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/robinhood/jobs?content=true", "priority": 3},
     "coinbase":        {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/coinbase/jobs?content=true", "priority": 3},
     "ramp":            {"board_type": "ashby",      "endpoint": "https://api.ashbyhq.com/posting-api/job-board/ramp?includeCompensation=true", "priority": 3},
+
+    # ----- tier 5: EU-HQ fintech / commerce (priority DACH/NL/FR offices) -----
+    "adyen":           {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/adyen/jobs?content=true", "priority": 2},
+    "n26":             {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/n26/jobs?content=true", "priority": 2},
+    "sumup":           {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/sumup/jobs?content=true", "priority": 2},
+    "celonis":         {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/celonis/jobs?content=true", "priority": 1},
+    "doctolib":        {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/doctolib/jobs?content=true", "priority": 1},
+    "getyourguide":    {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/getyourguide/jobs?content=true", "priority": 1},
+
+    # ----- tier 6: security-forward product / infra shops with EU presence -----
+    "gitlab":          {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/gitlab/jobs?content=true", "priority": 3},
+    "1password":       {"board_type": "ashby",      "endpoint": "https://api.ashbyhq.com/posting-api/job-board/1password?includeCompensation=true", "priority": 3},
+    "wiz":             {"board_type": "ashby",      "endpoint": "https://api.ashbyhq.com/posting-api/job-board/wiz?includeCompensation=true", "priority": 2},
+    "yubico":          {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/yubico/jobs?content=true", "priority": 2},
+    "semgrep":         {"board_type": "ashby",      "endpoint": "https://api.ashbyhq.com/posting-api/job-board/semgrep?includeCompensation=true", "priority": 2},
+    "chainguard":      {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/chainguard/jobs?content=true", "priority": 3},
+    "netskope":        {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/netskope/jobs?content=true", "priority": 3},
+    "teleport":        {"board_type": "lever",      "endpoint": "https://api.lever.co/v0/postings/teleport?mode=json", "priority": 3},
+
+    # ----- tier 7: AI labs (alignment / safety / security) ------------
+    "mistral":         {"board_type": "ashby",      "endpoint": "https://api.ashbyhq.com/posting-api/job-board/mistral?includeCompensation=true", "priority": 2},
+    "perplexity":      {"board_type": "ashby",      "endpoint": "https://api.ashbyhq.com/posting-api/job-board/perplexity?includeCompensation=true", "priority": 2},
+
+    # ----- tier 8: big-tech / SaaS (EU offices, ongoing security hiring) -----
+    "discord":         {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/discord/jobs?content=true", "priority": 3},
+    "reddit":          {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/reddit/jobs?content=true", "priority": 3},
+    "linear":          {"board_type": "ashby",      "endpoint": "https://api.ashbyhq.com/posting-api/job-board/linear?includeCompensation=true", "priority": 3},
+    "twilio":          {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/twilio/jobs?content=true", "priority": 3},
+    "airbnb":          {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/airbnb/jobs?content=true", "priority": 3},
+    "pinterest":       {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/pinterest/jobs?content=true", "priority": 3},
+    "asana":           {"board_type": "greenhouse", "endpoint": "https://boards-api.greenhouse.io/v1/boards/asana/jobs?content=true", "priority": 3},
+    "atlassian":       {"board_type": "lever",      "endpoint": "https://api.lever.co/v0/postings/atlassian?mode=json", "priority": 3},
 }
 
 

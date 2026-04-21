@@ -280,7 +280,7 @@ def collect_jobs() -> list:
     return all_jobs
 
 
-def score_and_filter(raw_jobs: list, min_score: int = 30) -> list:
+def score_and_filter(raw_jobs: list, min_score: int = 70) -> list:
     """Score every job; drop those that don't pass min_score. Returns CSV-ready row dicts."""
     today = dt.date.today().isoformat()
     rows = []
@@ -317,6 +317,29 @@ def score_and_filter(raw_jobs: list, min_score: int = 30) -> list:
     return rows
 
 
+def update_statuses(existing_rows: list, current_urls: set) -> tuple:
+    """
+    Mark existing rows as Open or Closed based on whether their Application Link
+    appears in the current fresh scrape. Manual-portal rows are left untouched
+    (their URL never appears in the API feeds).
+
+    Returns (n_now_open, n_now_closed).
+    """
+    n_open = n_closed = 0
+    for row in existing_rows:
+        status = (row.get("Status") or "").lower()
+        if "manual portal" in status:
+            continue
+        url = (row.get("Application Link") or "").strip()
+        if url and url in current_urls:
+            row["Status"] = "Open"
+            n_open += 1
+        else:
+            row["Status"] = "Closed"
+            n_closed += 1
+    return (n_open, n_closed)
+
+
 def seed_direct_apply_rows() -> list:
     """Re-create rows for the manually-curated SWISS_DIRECT_APPLY portals."""
     today = dt.date.today().isoformat()
@@ -326,8 +349,8 @@ def seed_direct_apply_rows() -> list:
         # We score these with a synthetic JD-like text so the gatekeeper passes.
         synth_body = title + " " + why
         score, why_score, skills = score_job(title, location, "Security", synth_body, "intern")
-        # Floor portal entries at 60 so they're visible in your sort.
-        score = max(score, 60)
+        # Floor portal entries at 70 so they pass the default filter.
+        score = max(score, 70)
         rows.append({
             "First Seen": today,
             "Country": country,
@@ -357,8 +380,8 @@ def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--dry-run", action="store_true", help="don't write to csv")
     p.add_argument("--rebuild", action="store_true", help="back up old csv and start fresh")
-    p.add_argument("--min-score", type=int, default=50,
-                   help="drop any job whose match score falls below this (default 50)")
+    p.add_argument("--min-score", type=int, default=70,
+                   help="drop any job whose match score falls below this (default 70)")
     args = p.parse_args()
 
     log("=== scrape run starting ===")
@@ -374,6 +397,11 @@ def main() -> int:
 
     raw_jobs = collect_jobs()
     log(f"total raw jobs across all boards: {len(raw_jobs)}")
+
+    # Build set of currently-live URLs so we can mark stale existing rows as Closed.
+    current_urls = {j["url"] for j in raw_jobs if j.get("url")}
+    n_open, n_closed = update_statuses(existing_rows, current_urls)
+    log(f"status refresh: {n_open} still Open, {n_closed} now Closed")
 
     scored = score_and_filter(raw_jobs, min_score=args.min_score)
     log(f"after scoring/filter (>= {args.min_score}): {len(scored)} rows")
@@ -399,10 +427,22 @@ def main() -> int:
         log("dry-run; not writing.")
         return 0
 
-    # Sort new rows by match score desc before append so a fresh tail is the most useful first.
-    new_rows.sort(key=lambda r: -int(r["Match Score"]))
-    append_csv(CSV_PATH, new_rows)
-    log(f"appended {len(new_rows)} rows -> {CSV_PATH}")
+    # Full-rewrite pass: existing rows (with refreshed Status) + new rows, sorted so
+    # Open rows come first and highest match scores are at the top.
+    all_rows = existing_rows + new_rows
+
+    def _sort_key(r):
+        status = (r.get("Status") or "").lower()
+        status_rank = 0 if "closed" not in status else 1
+        try:
+            neg_score = -int(r.get("Match Score") or 0)
+        except (TypeError, ValueError):
+            neg_score = 0
+        return (status_rank, neg_score)
+
+    all_rows.sort(key=_sort_key)
+    write_csv(CSV_PATH, all_rows)
+    log(f"wrote {len(all_rows)} rows -> {CSV_PATH} ({len(new_rows)} new)")
     log("=== scrape run done ===")
     return 0
 
